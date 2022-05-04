@@ -2,7 +2,7 @@
   "name": "Ad Tracker",
   "version": "1.0.0",
   "manifest_version": 2,
-  "description": "Parse ad requests",
+  "description": "Parse GPT requests",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

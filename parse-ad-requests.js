@@ -65,7 +65,7 @@ function interceptRequests() {
   };
 
   XHR.send = function () {
-    this.addEventListener("load", onLoad);
+    this.addEventListener("load", onLoad, { once: true });
     return send.apply(this, arguments);
   };
 }
