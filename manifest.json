@@ -1,0 +1,13 @@
+{
+  "name": "Ad Tracker",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Parse ad requests",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["parse-ad-requests.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
