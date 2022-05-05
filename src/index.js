@@ -1,23 +1,17 @@
-import { interceptRequests } from "./intercept-requests";
-import { inspectSlots } from "./inspect-slots";
+import { interceptRequests } from "./intercept-requests/index.js";
+import { inspectSlots } from "./inspect-slots/index.js";
 
 function appendScripts() {
-  const interceptScript = document.createElement("script");
-  interceptScript.innerHTML = `
-    // Expose the 'inspectSlots' function
-    //-----------------------------------------------------------------------
+  const script = document.createElement("script");
+  script.innerHTML = `
     ${inspectSlots}
-
-    // Immediately overwrite the XMLHttpRequest object
-    //-----------------------------------------------------------------------
     (${interceptRequests})()
   `;
 
-  document.head.prepend(interceptScript);
+  document.head.prepend(script);
 }
 
 // Poll the DOM to see if it's ready
-//-----------------------------------------------------------------------
 function checkForDOM() {
   document.body && document.head
     ? appendScripts()

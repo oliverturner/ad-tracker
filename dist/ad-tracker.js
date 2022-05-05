@@ -73,60 +73,97 @@
     };
   }
 
-  function inspectSlots() {
-    function formatKeyCase(omit, str) {
-      str = str.slice(omit.length);
-      return str.charAt(0).toLowerCase() + str.slice(1);
+  /**
+   * @typedef {import("../../types").SlotRaw} SlotRaw
+   * @typedef {import("../../types").Slot} Slot
+   * @typedef {import("../../types").Formats} Formats
+   * @typedef {import("../../types").Targets} Targets
+   */
+
+  /**
+   * ```js
+   * formatKeyCase("oAdsName", "oAds") => "name"
+   * ```
+   * @param {string} omit
+   * @param {string} str
+   * @returns {string}
+   */
+  function formatKeyCase(omit, str) {
+    str = str.slice(omit.length);
+    return str.charAt(0).toLowerCase() + str.slice(1);
+  }
+
+  /**
+   * @param {SlotRaw} obj
+   * @returns {Slot}
+   */
+  function extractFormats(obj) {
+    const {
+      formatsDefault,
+      formatsExtra,
+      formatsLarge,
+      formatsMedium,
+      formatsSmall,
+      ...rest
+    } = obj;
+    const rawFormats = {
+      formatsDefault,
+      formatsExtra,
+      formatsLarge,
+      formatsMedium,
+      formatsSmall,
+    };
+
+    /** @type {Formats} */
+    const formats = {};
+    for (const [k, v] of Object.entries(rawFormats)) {
+      const key = formatKeyCase("formats", k);
+      formats[key] = v?.split(",");
     }
 
-    function extractFormats(obj) {
-      const {
-        formatsDefault,
-        formatsExtra,
-        formatsLarge,
-        formatsMedium,
-        formatsSmall,
-        ...rest
-      } = obj;
-      const rawFormats = {
-        formatsDefault,
-        formatsExtra,
-        formatsLarge,
-        formatsMedium,
-        formatsSmall,
-      };
-      const formats = {};
-      for (const [k, v] of Object.entries(rawFormats)) {
-        const key = formatKeyCase("formats", k);
-        formats[key] = v?.split(",");
+    return {
+      ...rest,
+      formats,
+    };
+  }
+
+  /**
+   * @param {Slot} obj
+   * @returns {Slot}
+   */
+  function parseTargets(obj) {
+    const { targeting } = obj;
+    if (targeting) {
+      // @ts-ignore
+      const pairs = targeting.split(";");
+
+      /** @type {Targets} */
+      const targets = {};
+      for (let pair of pairs) {
+        const [k, v] = pair.split("=");
+        targets[k] = v;
       }
 
       return {
-        ...rest,
-        formats,
+        ...obj,
+        targeting: targets,
       };
     }
 
-    function parseTargets(obj) {
-      const { targeting } = obj;
-      if (targeting) {
-        const pairs = targeting.split(";");
-        const targets = {};
-        for (let pair of pairs) {
-          const [k, v] = pair.split("=");
-          targets[k] = v;
-        }
+    return obj;
+  }
 
-        return {
-          ...obj,
-          targeting: targets,
-        };
-      }
+  /**
+   * @typedef {import("../../types").Slot} Slot
+   */
 
-      return obj;
-    }
+  function inspectSlots() {
 
+    /**
+     * @param {Slot} ad
+     */
     function parseProps(ad) {
+      /** @type {Record<SlotRaw} */
       const obj = {};
       for (const [k, v] of Object.entries(ad)) {
         const key = formatKeyCase("oAds", k);
@@ -136,10 +173,10 @@
       return parseTargets(extractFormats(obj));
     }
 
-    function init() {
-      /** @type {NodeListOf<HTMLElement>} */
-      const els = document.querySelectorAll(".o-ads, [data-o-ads-init]");
-
+    /**
+     * @param {NodeListOf<HTMLElement>} els
+     */
+    function init(els) {
       const slots = {};
       for (const el of els) {
         slots[el.dataset.oAdsName] = { ...el.dataset };
@@ -153,22 +190,20 @@
       console.info("Page slots", slotConfig);
     }
 
-    init();
+    init(document.querySelectorAll(".o-ads, [data-o-ads-init]"));
   }
 
   function appendScripts() {
-    const interceptScript = document.createElement("script");
-    interceptScript.innerHTML = `
-    // Expose the 'inspectSlots' function
+    const script = document.createElement("script");
+    script.innerHTML = `
     ${inspectSlots}
-
-    // Immediately overwrite the XMLHttpRequest object
     (${interceptRequests})()
   `;
 
-    document.head.prepend(interceptScript);
+    document.head.prepend(script);
   }
 
+  // Poll the DOM to see if it's ready
   function checkForDOM() {
     document.body && document.head
       ? appendScripts()
