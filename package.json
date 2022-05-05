@@ -1,0 +1,20 @@
+{
+  "name": "ads",
+  "description": "Visit any page displaying Google Ads and open the web inspector - Ad requests are logged to the console as they are resolved - The most useful properties are surfaced at the top level - Further details are available in sub-objects labelled \"other\"",
+  "version": "1.0.0",
+  "author": "Oliver Turner",
+  "repository": "git+https://github.com/oliverturner/ad-tracker.git",
+  "bugs": "https://github.com/oliverturner/ad-tracker/issues",
+  "homepage": "https://github.com/oliverturner/ad-tracker#readme",
+  "keywords": [],
+  "license": "ISC",
+  "type": "module",
+  "main": "src/index.js",
+  "devDependencies": {
+    "rollup": "^2.72.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup src/index.js --file dist/ad-tracker.js --format iife"
+  }
+}

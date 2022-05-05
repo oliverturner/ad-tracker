@@ -1,7 +1,7 @@
-function interceptRequests() {
-  var XHR = XMLHttpRequest.prototype;
-  var send = XHR.send;
-  var open = XHR.open;
+export function interceptRequests() {
+  let XHR = XMLHttpRequest.prototype;
+  let send = XHR.send;
+  let open = XHR.open;
   let counter = 0;
 
   function processCustParams(cust_params) {
@@ -69,20 +69,3 @@ function interceptRequests() {
     return send.apply(this, arguments);
   };
 }
-
-function interceptData() {
-  var xhrOverrideScript = document.createElement("script");
-  xhrOverrideScript.type = "text/javascript";
-  xhrOverrideScript.innerHTML = `(${interceptRequests})();`;
-  document.head.prepend(xhrOverrideScript);
-}
-
-function checkForDOM() {
-  if (document.body && document.head) {
-    interceptData();
-  } else {
-    requestIdleCallback(checkForDOM);
-  }
-}
-
-requestIdleCallback(checkForDOM);
