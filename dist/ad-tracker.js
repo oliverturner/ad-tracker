@@ -73,7 +73,7 @@
     };
   }
 
-  function inspectSlotConfig() {
+  function inspectSlots() {
     function formatKeyCase(omit, str) {
       str = str.slice(omit.length);
       return str.charAt(0).toLowerCase() + str.slice(1);
@@ -137,12 +137,14 @@
     }
 
     function init() {
+      /** @type {NodeListOf<HTMLElement>} */
+      const els = document.querySelectorAll(".o-ads, [data-o-ads-init]");
+
       const slots = {};
-      for (let el of document.querySelectorAll(".o-ads, [data-o-ads-init]")) {
-        slots[el.dataset.oAdsName] = {
-          ...el.dataset,
-        };
+      for (const el of els) {
+        slots[el.dataset.oAdsName] = { ...el.dataset };
       }
+
       const slotConfig = {};
       for (const [oAdsName, adSlot] of Object.entries(slots)) {
         slotConfig[oAdsName] = parseProps(adSlot);
@@ -156,16 +158,15 @@
 
   function appendScripts() {
     const interceptScript = document.createElement("script");
-    interceptScript.innerHTML = `(${interceptRequests})()`;
+    interceptScript.innerHTML = `
+    // Expose the 'inspectSlots' function
+    ${inspectSlots}
 
-    const slotScript = document.createElement("script");
-    slotScript.innerHTML = `
-    ${inspectSlotConfig}
-    document.addEventListener("DOMContentLoaded", inspectSlotConfig);
+    // Immediately overwrite the XMLHttpRequest object
+    (${interceptRequests})()
   `;
 
     document.head.prepend(interceptScript);
-    document.body.append(slotScript);
   }
 
   function checkForDOM() {
