@@ -47,6 +47,7 @@ A function called `inspectSlots` is also made available on the window. Invoking 
   }
 }
 ```
+Creating a bookmark with the address `javascript:inspectSlots()` will let you trigger it on demand
 
 ## Installation
 
