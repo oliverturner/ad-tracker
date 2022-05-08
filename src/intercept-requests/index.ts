@@ -4,7 +4,7 @@ export function interceptRequests() {
   let open = XHR.open;
   let counter = 0;
 
-  function processCustParams(cust_params) {
+  function processCustParams(cust_params: string) {
     const custValues = new URLSearchParams(cust_params);
     const {
       device_spoor_id,
@@ -25,7 +25,7 @@ export function interceptRequests() {
     };
   }
 
-  function onLoad() {
+  function onLoad(this: any) {
     if (
       this.url?.includes("https://securepubads.g.doubleclick.net/gampad/ads")
     ) {
@@ -54,18 +54,14 @@ export function interceptRequests() {
     }
   }
 
-  /**
-   * @param {string} _method
-   * @param {*} url
-   * @returns
-   */
-  XHR.open = function (_method, url) {
+  XHR.open = function (_method: string, url: any) {
+    // @ts-ignore
     this.url = url; // the request url
-    return open.apply(this, arguments);
+    return open.apply(this, arguments as any);
   };
 
   XHR.send = function () {
     this.addEventListener("load", onLoad, { once: true });
-    return send.apply(this, arguments);
+    return send.apply(this, arguments as any);
   };
 }

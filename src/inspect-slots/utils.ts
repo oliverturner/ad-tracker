@@ -1,28 +1,16 @@
-/**
- * @typedef {import("../../types").SlotRaw} SlotRaw
- * @typedef {import("../../types").Slot} Slot
- * @typedef {import("../../types").Formats} Formats
- * @typedef {import("../../types").Targets} Targets
- */
+import type { SlotRaw, Slot, Formats, Targets } from "../../types";
 
 /**
  * ```js
  * formatKeyCase("oAdsName", "oAds") => "name"
  * ```
- * @param {string} omit
- * @param {string} str
- * @returns {string}
  */
-export function formatKeyCase(omit, str) {
+export function formatKeyCase<T>(omit: string, str: string): keyof T {
   str = str.slice(omit.length);
-  return str.charAt(0).toLowerCase() + str.slice(1);
+  return str.charAt(0).toLowerCase() + str.slice(1) as keyof T;
 }
 
-/**
- * @param {SlotRaw} obj
- * @returns {Slot}
- */
-export function extractFormats(obj) {
+export function extractFormats(obj: SlotRaw): Slot {
   const {
     formatsDefault,
     formatsExtra,
@@ -39,11 +27,10 @@ export function extractFormats(obj) {
     formatsSmall,
   };
 
-  /** @type {Formats} */
-  const formats = {};
+  const formats: Formats = {};
   for (const [k, v] of Object.entries(rawFormats)) {
     const key = formatKeyCase("formats", k);
-    formats[key] = v?.split(",");
+    if (v) formats[key] = v.split(",");
   }
 
   return {
@@ -52,18 +39,13 @@ export function extractFormats(obj) {
   };
 }
 
-/**
- * @param {Slot} obj
- * @returns {Slot}
- */
-export function parseTargets(obj) {
+export function parseTargets(obj: Slot): Slot {
   const { targeting } = obj;
   if (targeting) {
     // @ts-ignore
     const pairs = targeting.split(";");
 
-    /** @type {Targets} */
-    const targets = {};
+    const targets: Targets = {};
     for (let pair of pairs) {
       const [k, v] = pair.split("=");
       targets[k] = v;

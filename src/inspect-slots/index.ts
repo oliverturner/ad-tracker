@@ -1,36 +1,28 @@
-/**
- * @typedef {import("../../types").Slot} Slot
- * @typedef {import("../../types").SlotRaw} SlotRaw
- */
+import type { Slot, SlotRaw } from "../../types";
 
 import { extractFormats, formatKeyCase, parseTargets } from "./utils";
 
 export function inspectSlots() {
-
-  /**
-   * @param {Slot} ad
-   */
-  function parseProps(ad) {
-    /** @type {SlotRaw} */
-    const obj = {};
+  function parseProps(ad: Slot): Slot {
+    const obj: SlotRaw = {};
     for (const [k, v] of Object.entries(ad)) {
-      const key = formatKeyCase("oAds", k);
+      const key = formatKeyCase<SlotRaw>("oAds", k);
+      // @ts-ignore
       obj[key] = v;
     }
 
     return parseTargets(extractFormats(obj));
   }
 
-  /**
-   * @param {NodeListOf<HTMLElement>} els
-   */
-  function init(els) {
-    const slots = {};
+  function init(els: NodeListOf<HTMLElement>): void {
+    const slots: Record<string, any> = {};
     for (const el of els) {
-      slots[el.dataset.oAdsName] = { ...el.dataset };
+      if (el.dataset?.oAdsName) {
+        slots[el.dataset.oAdsName] = { ...el.dataset };
+      }
     }
 
-    const slotConfig = {};
+    const slotConfig: Record<string, Slot> = {};
     for (const [oAdsName, adSlot] of Object.entries(slots)) {
       slotConfig[oAdsName] = parseProps(adSlot);
     }
