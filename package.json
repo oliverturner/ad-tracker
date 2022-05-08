@@ -10,7 +10,10 @@
   "license": "ISC",
   "type": "module",
   "main": "src/index.js",
+  "module": "src/index.js",
   "devDependencies": {
+    "@babel/preset-env": "^7.17.10",
+    "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-typescript": "^8.3.2",
     "@tsconfig/node16": "1.0.2",
     "c8": "7.11.2",

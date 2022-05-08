@@ -37,4 +37,10 @@ export type AdRequest = {
   us_privacy: string;
   cust_params: AdRequestCustParams;
   other: Record<string, string>;
+};
+
+declare global {
+  interface Window {
+    inspectSlots: () => void;
+  }
 }

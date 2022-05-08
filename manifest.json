@@ -5,9 +5,14 @@
   "description": "Parse GPT requests",
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["dist/index.js"],
+      "matches": ["https://*.ft.com/*"],
+      "js": ["dist/intercept-requests.js"],
       "run_at": "document_start"
+    },
+    {
+      "matches": ["https://*.ft.com/*"],
+      "js": ["dist/inspect-slots.js"],
+      "run_at": "document_idle"
     }
   ]
 }

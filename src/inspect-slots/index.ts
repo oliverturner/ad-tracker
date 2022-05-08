@@ -19,9 +19,7 @@ export function init(els: NodeListOf<HTMLElement>): Record<string, Slot> {
 }
 
 export function inspectSlots() {
-  const slotEls = document.querySelectorAll<HTMLElement>(
-    ".o-ads, [data-o-ads-init]"
-  );
+  const slotEls = document.querySelectorAll<HTMLElement>(".o-ads, [data-o-ads-init]");
   const slotConfig = init(slotEls);
   console.info("Page slots", slotConfig);
 }
