@@ -21,3 +21,20 @@ export type Slot = Partial<{
   targeting: Targets;
   formats: Formats;
 }>;
+
+export type AdRequestCustParams = {
+  device_spoor_id: string;
+  guid: string;
+  loggedIn: string;
+  permutive: string;
+  permutiveId: string;
+  other: Record<string, string>;
+};
+
+export type AdRequest = {
+  prev_iu_szs: string;
+  prev_scp: string;
+  us_privacy: string;
+  cust_params: AdRequestCustParams;
+  other: Record<string, string>;
+}

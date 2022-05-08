@@ -14,9 +14,6 @@ describe("formatKeyCase", () => {
 describe("extractFormats", () => {
   it("Creates a formats property omitting nullish values", () => {
     const input = {
-      a: 1,
-      b: 2,
-      c: 3,
       formatsDefault: undefined,
       formatsSmall: "small",
       formatsMedium: "medium1,medium2,medium3",
@@ -25,33 +22,23 @@ describe("extractFormats", () => {
     };
 
     const expected = {
-      a: 1,
-      b: 2,
-      c: 3,
-      formats: {
-        small: ["small"],
-        medium: ["medium1", "medium2", "medium3"],
-        large: ["large"],
-      },
+      small: ["small"],
+      medium: ["medium1", "medium2", "medium3"],
+      large: ["large"],
     };
 
-    expect(extractFormats(input)).toEqual(expected);
+    expect(extractFormats(input as any)).toEqual(expected);
   });
 });
 
 describe("parseTargets", () => {
   it("Creates a targeting property", () => {
-    const input = {
-      a: 1,
-      b: 2,
-      c: 3,
-      targeting: "a=1;b=2;c=3",
-    };
+    const input = "a=1;b=2;c=3";
+
     const expected = {
-      a: 1,
-      b: 2,
-      c: 3,
-      targeting: { a: "1", b: "2", c: "3" },
+      a: "1",
+      b: "2",
+      c: "3",
     };
 
     expect(parseTargets(input as any)).toEqual(expected);

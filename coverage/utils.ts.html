@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">81.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/61</span>
+                <span class='fraction'>54/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">81.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>61/61</span>
+                <span class='fraction'>54/66</span>
             </div>
         
             
@@ -124,7 +124,12 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -169,10 +174,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -182,9 +183,18 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { SlotRaw, Slot, Formats, Targets } from "../../types";
 &nbsp;
 /**
@@ -194,10 +204,10 @@
  */
 export function formatKeyCase&lt;T&gt;(omit: string, str: string): keyof T {
   str = str.slice(omit.length);
-  return str.charAt(0).toLowerCase() + str.slice(1) as keyof T;
+  return (str.charAt(0).toLowerCase() + str.slice(1)) as keyof T;
 }
 &nbsp;
-export function extractFormats(obj: SlotRaw): Slot {
+export function extractFormats(obj: SlotRaw): Slot["formats"] {
   const {
     formatsDefault,
     formatsExtra,
@@ -220,32 +230,37 @@ export function extractFormats(obj: SlotRaw): Slot {
     if (v) formats[key] = v.split(",");
   }
 &nbsp;
-  return {
-    ...rest,
-    formats,
-  };
+  return formats;
 }
 &nbsp;
-export function parseTargets(obj: Slot): Slot {
-  const { targeting } = obj;
-  if (targeting) {
+export function parseTargets(obj: SlotRaw): Slot["targeting"] {
+  if (obj.targeting) {
     // @ts-ignore
-    const pairs = targeting.split(";");
+    const pairs = obj.targeting.split(";");
 &nbsp;
-    const targets: Targets = {};
+    const targeting: Targets = {};
     for (let pair of pairs) {
       const [k, v] = pair.split("=");
-      targets[k] = v;
+      targeting[k] = v;
     }
 &nbsp;
-    return {
-      ...obj,
-      targeting: targets,
-    };
+    return targeting;
   }
-&nbsp;
-<span class="branch-0 cbranch-no" title="branch not covered" >  return obj;</span>
 }
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function parseProps(ad: SlotRaw): Slot {</span>
+<span class="cstat-no" title="statement not covered" >  const obj: SlotRaw = {};</span>
+<span class="cstat-no" title="statement not covered" >  for (const [k, v] of Object.entries(ad)) {</span>
+<span class="cstat-no" title="statement not covered" >    const key = formatKeyCase&lt;SlotRaw&gt;("oAds", k);</span>
+<span class="cstat-no" title="statement not covered" >    // @ts-ignore</span>
+<span class="cstat-no" title="statement not covered" >    obj[key] = v;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const formats = extractFormats(obj);</span>
+<span class="cstat-no" title="statement not covered" >  const targeting = parseTargets(obj);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  return { ...obj, formats, targeting };</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >}</span></span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -253,7 +268,7 @@ export function parseTargets(obj: Slot): Slot {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun May 08 2022 01:01:28 GMT+0100 (British Summer Time)
+                at Sun May 08 2022 10:29:50 GMT+0100 (British Summer Time)
             </div>
         <script src="prettify.js"></script>
         <script>
