@@ -6,6 +6,7 @@ type SlotRaw = Partial<{
   init: "true" | "false";
   label: "true";
   name: string;
+  targeting: string;
   formatsDefault: string;
   formatsExtra: string;
   formatsLarge: string;
