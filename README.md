@@ -25,7 +25,7 @@ This is an extension for Chromium browsers. Once installed, visit any page on FT
 
 ### inspectSlots
 
-A function called `inspectSlots` is also made available on the window. Invoking it parses the `data-o-ads-*` attributes on each slot:
+A function called `inspectSlots` is also added. Invoking it parses the `data-o-ads-*` attributes on each slot:
 
 ```json
 {
@@ -46,7 +46,12 @@ A function called `inspectSlots` is also made available on the window. Invoking 
   }
 }
 ```
-Creating a bookmark with the address `javascript:inspectSlots()` will let you trigger it on demand
+The easiest way to invoke it is via a bookmarklet. A preconfigured one that you can drag to your favourites is available at https://financial-times.github.io/advertising/. 
+
+Alternatively you can create a bookmark called "Inspect slots" and edit its address to read
+```js
+javascript:window.postMessage({ type: "INSPECT_SLOTS" }, "*");
+```
 
 ## Installation
 
