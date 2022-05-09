@@ -1,7 +1,6 @@
 # AdTracker
 
-Visit any page displaying Google Ads and open the web inspector
-
+This is an extension for Chromium browsers. Once installed, visit any page on FT.com displaying Google Ads and open the web inspector
 - Ad requests are logged to the console as they are resolved
 - The most useful properties are surfaced at the top level
 - Further details are available in sub-objects labelled "other"
@@ -59,9 +58,9 @@ Creating a bookmark with the address `javascript:inspectSlots()` will let you tr
 
 1. Run `npm i`
 2. Make any desired changes, then run `npm run build`
-    (a watch mode is coming!)
+   (a watch mode is coming!)
 3. Apply your updates by clicking the "reload" button in the extension's settings
-    (you won't see any changes without doing this)
+   (you won't see any changes without doing this)
 
 ![Screenshot 2022-05-05 at 10 24 25](https://user-images.githubusercontent.com/21795/166896696-9e5e57f2-66ce-4404-b65d-1394d629e919.png)
 
