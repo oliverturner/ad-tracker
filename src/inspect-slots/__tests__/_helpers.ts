@@ -27,7 +27,7 @@ export function getExpectedSlotConfig(num: number): Record<string, Slot> {
   const expected: Record<string, Slot> = {};
   let counter = 0;
   while (counter < num) {
-    expected[`o-ads-name-${counter}`] = getMockSlot(counter);
+    expected[`ad-slot-${counter}`] = getMockSlot(counter);
     counter++
   }
 

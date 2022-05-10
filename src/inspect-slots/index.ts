@@ -4,10 +4,11 @@ import { parseProps } from "./utils";
 
 export function getSlotConfig(els: NodeListOf<HTMLElement>): Record<string, Slot> {
   const slots: Record<string, any> = {};
+  let counter = 0;
   for (const el of els) {
-    if (el.dataset?.oAdsName) {
-      slots[el.dataset.oAdsName] = { ...el.dataset };
-    }
+    // Generate an id for the slot: we rely on `data-o-ads-name` being set
+    const slotId = `ad-slot-${counter++}`;
+    slots[slotId] = { ...el.dataset };
   }
 
   const slotConfig: Record<string, Slot> = {};

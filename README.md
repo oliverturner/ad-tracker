@@ -46,7 +46,7 @@ A function called `inspectSlots` is also added. Invoking it parses the `data-o-a
   }
 }
 ```
-The easiest way to invoke it is via a bookmarklet. A preconfigured one that you can drag to your favourites is available at https://financial-times.github.io/advertising/. 
+The easiest way to invoke it is via a bookmarklet. A preconfigured one that you can drag to your favourites is available at https://financial-times.github.io/advertising/.
 
 Alternatively you can create a bookmark called "Inspect slots" and edit its address to read
 ```js
@@ -56,14 +56,14 @@ javascript:window.postMessage({ type: "INSPECT_SLOTS" }, "*");
 ## Installation
 
 1. Copy the root directory to your machine
-1. Follow these [instructions for side-loading the extension](https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading)
-   (Instructions are for Edge, but similar steps work for Chrome)
+1. Follow these instructions for side-loading the extension:
+  - [Edge](https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading)
+  - [Chrome](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked)
 
 ## Development
 
 1. Run `npm i`
-2. Make any desired changes, then run `npm run build`
-   (a watch mode is coming!)
+2. Run `npm run dev`: `dist/` will now be rebuilt on changes to the source files
 3. Apply your updates by clicking the "reload" button in the extension's settings
    (you won't see any changes without doing this)
 
@@ -71,6 +71,6 @@ javascript:window.postMessage({ type: "INSPECT_SLOTS" }, "*");
 
 ## TODO
 
-- [ ] Constrain inspection to FT.com pages
+- [x] Constrain inspection to FT.com pages
 - [ ] Tie requests back to the slots that triggered them
 - [ ] Support copying parsed values to the clipboard
