@@ -5,12 +5,32 @@
   "description": "Parse GPT requests",
   "content_scripts": [
     {
-      "matches": ["http://localhost:3000/*", "https://*.ft.com/*"],
+      "matches": [
+        "http://localhost:3000/*",
+        "https://local.ft.com:3000/*",
+        "https://*.ft.com/*",
+        "https://www.ftadviser.com/",
+        "https://www.investorschronicle.co.uk/",
+        "https://www.pensions-expert.com/",
+        "https://www.thebanker.com/",
+        "https://www.fdiintelligence.com/",
+        "https://www.pwmnet.com/"
+      ],
       "js": ["dist/intercept-requests.js"],
       "run_at": "document_start"
     },
     {
-      "matches": ["http://localhost:3000/*", "https://*.ft.com/*"],
+      "matches": [
+        "http://localhost:3000/*",
+        "https://local.ft.com:3000/*",
+        "https://*.ft.com/*",
+        "https://www.ftadviser.com/",
+        "https://www.investorschronicle.co.uk/",
+        "https://www.pensions-expert.com/",
+        "https://www.thebanker.com/",
+        "https://www.fdiintelligence.com/",
+        "https://www.pwmnet.com/"
+      ],
       "js": ["dist/inspect-slots.js"],
       "run_at": "document_idle"
     }
