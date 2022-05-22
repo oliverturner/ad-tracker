@@ -7,7 +7,7 @@
     {
       "matches": [
         "http://localhost:3000/*",
-        "https://local.ft.com:3000/*",
+        "http://local.ft.com:3000/*",
         "https://*.ft.com/*",
         "https://www.ftadviser.com/",
         "https://www.investorschronicle.co.uk/",
@@ -22,7 +22,7 @@
     {
       "matches": [
         "http://localhost:3000/*",
-        "https://local.ft.com:3000/*",
+        "http://local.ft.com:3000/*",
         "https://*.ft.com/*",
         "https://www.ftadviser.com/",
         "https://www.investorschronicle.co.uk/",
